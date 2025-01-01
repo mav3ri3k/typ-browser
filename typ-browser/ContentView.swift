@@ -7,26 +7,20 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     @State private var sum: UInt64 = 0
     @State private var num1: String = "0"
     @State private var num2: String = "0"
-
+    
     var body: some View {
-        VStack {
-            Text("Sum: \(sum)")
-                .padding()
-            HStack {
-                TextField("Number 1", text: $num1)
-                    .padding()
-                TextField("Number 2", text: $num2)
-                    .padding()
-            }
-            Button("Calculate Sum") {
-                calculateSum()
-            }
-        }
-        .padding()
+        
+        let pdfURL = Bundle.main.url(forResource: "ass", withExtension: "pdf")!
+
+          
+        PDFViewer(pdfURL)
+
+            
     }
 
     func calculateSum() {
@@ -38,6 +32,3 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-}

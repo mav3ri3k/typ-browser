@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		68D1BB1D2D251362007B7991 /* liblibtyp_browser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D1BB1C2D251362007B7991 /* liblibtyp_browser.dylib */; };
 		68D1BB1E2D251362007B7991 /* liblibtyp_browser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 68D1BB1C2D251362007B7991 /* liblibtyp_browser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		68EA61872D253AB40071FCEB /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68EA61832D25307B0071FCEB /* PDFKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		68D1BB1C2D251362007B7991 /* liblibtyp_browser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblibtyp_browser.dylib; path = "libtyp-browser/target/release/liblibtyp_browser.dylib"; sourceTree = SOURCE_ROOT; };
 		68EA615D2D251EE20071FCEB /* liblibtyp_browser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = liblibtyp_browser.h; sourceTree = SOURCE_ROOT; };
 		68EA61602D251F3D0071FCEB /* typ-browser-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "typ-browser-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		68EA61832D25307B0071FCEB /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/PDFKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -74,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68EA61872D253AB40071FCEB /* PDFKit.framework in Frameworks */,
 				68D1BB1D2D251362007B7991 /* liblibtyp_browser.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -121,6 +124,7 @@
 		68D1BB1B2D251362007B7991 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				68EA61832D25307B0071FCEB /* PDFKit.framework */,
 				68D1BB1C2D251362007B7991 /* liblibtyp_browser.dylib */,
 			);
 			name = Frameworks;
