@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		68D1BB1D2D251362007B7991 /* liblibtyp_browser.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D1BB1C2D251362007B7991 /* liblibtyp_browser.dylib */; };
+		68D1BB1E2D251362007B7991 /* liblibtyp_browser.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 68D1BB1C2D251362007B7991 /* liblibtyp_browser.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		681A56D32D2457CE002E302C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,10 +28,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		68D1BB1F2D251362007B7991 /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				68D1BB1E2D251362007B7991 /* liblibtyp_browser.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		681A56C12D2457CA002E302C /* typ-browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "typ-browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		681A56D22D2457CE002E302C /* typ-browserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "typ-browserTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		681A56DC2D2457CE002E302C /* typ-browserUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "typ-browserUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68D1BB1C2D251362007B7991 /* liblibtyp_browser.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblibtyp_browser.dylib; path = "libtyp-browser/target/release/liblibtyp_browser.dylib"; sourceTree = SOURCE_ROOT; };
+		68EA615D2D251EE20071FCEB /* liblibtyp_browser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = liblibtyp_browser.h; sourceTree = SOURCE_ROOT; };
+		68EA61602D251F3D0071FCEB /* typ-browser-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "typ-browser-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68D1BB1D2D251362007B7991 /* liblibtyp_browser.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,9 +98,12 @@
 		681A56B82D2457CA002E302C = {
 			isa = PBXGroup;
 			children = (
+				68EA61602D251F3D0071FCEB /* typ-browser-Bridging-Header.h */,
+				68EA615D2D251EE20071FCEB /* liblibtyp_browser.h */,
 				681A56C32D2457CA002E302C /* typ-browser */,
 				681A56D52D2457CE002E302C /* typ-browserTests */,
 				681A56DF2D2457CE002E302C /* typ-browserUITests */,
+				68D1BB1B2D251362007B7991 /* Frameworks */,
 				681A56C22D2457CA002E302C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +118,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		68D1BB1B2D251362007B7991 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				68D1BB1C2D251362007B7991 /* liblibtyp_browser.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,6 +136,7 @@
 				681A56BD2D2457CA002E302C /* Sources */,
 				681A56BE2D2457CA002E302C /* Frameworks */,
 				681A56BF2D2457CA002E302C /* Resources */,
+				68D1BB1F2D251362007B7991 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -407,6 +442,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libtyp-browser/target/release",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apurva-mishra.typ-browser";
@@ -414,6 +453,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "typ-browser-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				XROS_DEPLOYMENT_TARGET = 2.2;
@@ -444,6 +484,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libtyp-browser/target/release",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apurva-mishra.typ-browser";
@@ -451,6 +495,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "typ-browser-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				XROS_DEPLOYMENT_TARGET = 2.2;
@@ -465,6 +510,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libtyp-browser/target/release",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apurva-mishra.typ-browserTests";
@@ -487,6 +536,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libtyp-browser/target/release",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apurva-mishra.typ-browserTests";
@@ -508,6 +561,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libtyp-browser/target/release",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apurva-mishra.typ-browserUITests";
@@ -529,6 +586,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libtyp-browser/target/release",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.apurva-mishra.typ-browserUITests";
