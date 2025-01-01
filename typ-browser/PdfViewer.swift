@@ -19,6 +19,7 @@ struct PDFViewer: NSViewRepresentable {
         let pdfView = PDFView()
         pdfView.document = PDFDocument(url: self.url)
         pdfView.autoScales = true
+        //pdfView.backgroundColor = NSColor.systemBlue
         return pdfView
     }
 
