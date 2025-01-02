@@ -9,6 +9,6 @@
 #define liblibtyp_browser_h
 
 #include <stdint.h> // VERY IMPORTANT!
-extern uint64_t add(uint64_t left, uint64_t right);
+extern uint8_t compile(const char *entry);
 
 #endif /* liblibtyp_browser_h */

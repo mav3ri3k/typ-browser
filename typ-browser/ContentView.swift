@@ -10,15 +10,16 @@ import SwiftUI
 struct ContentView: View {
     @State private var selectedTab: UUID = UUID()
     @State private var url: String = ""
+    @State private var update_index = 0
+    @State private var global = 0
     @State private var isSidebarVisible = false
     @State private var sidebarWidth: CGFloat = 300
     @State private var previousSidebarWidth: CGFloat = 300
     @State private var isHoveringDivider = false // Track if hovering over divider area
-    let pdfURL = Bundle.main.url(forResource: "ass", withExtension: "pdf")!
     
     var body: some View {
         HStack(spacing: 0) {
-            PDFViewer(pdfURL)
+            PDFViewer(url: $url, global: $global)
                 .frame(maxWidth: .infinity)
             
             if isSidebarVisible {
@@ -44,7 +45,7 @@ struct ContentView: View {
                     
                     
                     // Sidebar View
-                    TextEditorView()
+                    FileEditorView()
                         .frame(width: sidebarWidth)
                         .transition(.move(edge: .trailing))
                 }
@@ -60,7 +61,17 @@ struct ContentView: View {
             }
         }
         .toolbar {
-            
+            ToolbarItem(placement: .automatic) { // Example: Reload button
+                Button(action: {
+                    let arg = url.cString(using: .utf8)!
+                    let success = compile(arg);
+                    global += 1
+                    print(success)
+                    
+                }) {
+                    Image(systemName: "play.fill")
+                }
+            }
             ToolbarItem(placement: .automatic) { // Example: Reload button
                 Button(action: {}) {
                     Image(systemName: "arrow.clockwise")
@@ -98,7 +109,7 @@ struct ContentView: View {
             
             ToolbarItem(placement: .automatic) {
                 HStack {
-                    TextField("Enter URL...", text: $url)
+                    TextField("Enter Path...", text: $url)
                         .frame(width: 200)
                         .onSubmit {
                             print(url)
@@ -109,17 +120,6 @@ struct ContentView: View {
         }
         .navigationTitle("Typorium")
         
-    }
-}
-
-struct TextEditorView: View {
-    @State private var text: String = "Some text..."
-    
-    var body: some View {
-        VStack {
-            TextEditor(text: $text)
-                .padding()
-        }
     }
 }
 
