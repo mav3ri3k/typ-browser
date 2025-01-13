@@ -64,7 +64,7 @@ struct ContentView: View {
             ToolbarItem(placement: .automatic) { // Example: Reload button
                 Button(action: {
                     let arg = url.cString(using: .utf8)!
-                    let success = compile(arg);
+                    let success = run(arg);
                     global += 1
                     print(success)
                     

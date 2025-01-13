@@ -1,10 +1,14 @@
 use std::ffi::CStr;
 use std::os::raw::c_char;
 use std::process::Command;
+use tempfile::Builder;
 use url::Url;
 
+mod network;
+mod util;
+
 #[no_mangle]
-pub extern "C" fn compile(entry: *const c_char) -> u8 {
+pub extern "C" fn run(entry: *const c_char) -> u8 {
     // Convert the C string to a Rust string
     let c_str = unsafe {
         assert!(!entry.is_null());
@@ -18,6 +22,16 @@ pub extern "C" fn compile(entry: *const c_char) -> u8 {
             return 0;
         }
     };
+
+    let dir = util::Dir::new();
+    let tmp_dir = Builder::new().prefix("typorium").tempdir()?;
+
+    let x = "some";
+    let _ = network::resolve_request(&x, &tmp_dir);
+    compile(input_url)
+}
+
+fn compile(input_url: &str) -> u8 {
     let file_path = match Url::parse(input_url) {
         Ok(url) => {
             if url.scheme() == "file" {
