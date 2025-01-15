@@ -1,12 +1,9 @@
-use super::FileType;
 use reqwest::blocking as req;
 use std::fs::File;
 use std::io::Write;
-use tempfile::TempDir;
+use std::path::{Path, PathBuf};
 
-use crate::util::*;
-
-pub(super) fn resolve_request(url: &str, dir: &Dir) -> anyhow::Result<FileType> {
+pub(super) fn resolve_request(url: &str, dir_root: &Path) -> anyhow::Result<PathBuf> {
     let response = req::get(url)?;
 
     let fname = response
@@ -16,17 +13,15 @@ pub(super) fn resolve_request(url: &str, dir: &Dir) -> anyhow::Result<FileType> 
         .and_then(|name| if name.is_empty() { None } else { Some(name) })
         .unwrap_or("tmp.bin");
 
-    println!("file to download: '{}'", fname);
-    let fname = dir.tmp_dir.path().join(fname);
-    println!("will be located under: '{:?}'", fname);
+    let fname = dir_root.join(fname);
 
     let mut dest = File::create(&fname)?;
 
     let content = response.bytes()?;
     dest.write_all(&content)?;
 
-    Ok(FileType::new(&fname))
+    Ok(fname)
 }
 
 // look for paths in file
-pub(super) fn find_paths(fname: File) {}
+pub(super) fn find_paths(_fname: File) {}

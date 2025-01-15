@@ -1,5 +1,6 @@
 use std::ffi::CStr;
 use std::os::raw::c_char;
+use std::path::PathBuf;
 use std::process::Command;
 use tempfile::Builder;
 use url::Url;
@@ -23,15 +24,22 @@ pub extern "C" fn run(entry: *const c_char) -> u8 {
         }
     };
 
-    let dir = util::Dir::new();
-    let tmp_dir = Builder::new().prefix("typorium").tempdir()?;
+    let mut dir = util::Dir::new();
 
-    let x = "some";
-    let _ = network::resolve_request(&x, &tmp_dir);
-    compile(input_url)
+    match dir.get_root(&input_url) {
+        Ok(_) => {}
+        Err(_) => {
+            return 5;
+        }
+    };
+
+    //TODO(find way to initialize dir only if root present)
+    compile(dir.root.expect("Not possible, it would have returned"))
 }
 
-fn compile(input_url: &str) -> u8 {
+fn compile(file_path: PathBuf) -> u8 {
+    /*
+     * maybe used later
     let file_path = match Url::parse(input_url) {
         Ok(url) => {
             if url.scheme() == "file" {
@@ -51,6 +59,7 @@ fn compile(input_url: &str) -> u8 {
             return 1;
         }
     };
+    */
 
     // Execute the Typst CLI command
     let status = Command::new("/Users/apurva/.cargo/bin/typst")
