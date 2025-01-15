@@ -11,6 +11,7 @@ import PDFKit
 struct PDFViewer: NSViewRepresentable {
     @Binding var url: String
     @Binding var global: Int
+    @Binding var dir_path: URL
     @State private var cur = 0
 
     func changeURLExtension(_ url: URL, to newExtension: String) -> URL {
@@ -30,12 +31,14 @@ struct PDFViewer: NSViewRepresentable {
     func updateNSView(_ nsView: PDFView, context: Context) {
         if (cur < global) {
             cur = global
+            /*
             guard var pdfURL = URL(string: url), !url.isEmpty else {
                 nsView.document = nil // Clear the document if the URL is invalid or empty
                 return
             }
             pdfURL = changeURLExtension(pdfURL, to: "pdf")
-            
+            */
+            var pdfURL = dir_path.appendingPathComponent("main.pdf")
             if let pdfDocument = PDFDocument(url: pdfURL) {
                 nsView.document = pdfDocument
             } else {

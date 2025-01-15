@@ -9,14 +9,19 @@ mod network;
 mod util;
 
 #[no_mangle]
-pub extern "C" fn run(entry: *const c_char) -> u8 {
+pub extern "C" fn run(url: *const c_char, root_path: *const c_char) -> u8 {
     // Convert the C string to a Rust string
-    let c_str = unsafe {
-        assert!(!entry.is_null());
-        CStr::from_ptr(entry)
+    let c_url = unsafe {
+        assert!(!url.is_null());
+        CStr::from_ptr(url)
     };
 
-    let input_url = match c_str.to_str() {
+    let c_root_path = unsafe {
+        assert!(!root_path.is_null());
+        CStr::from_ptr(root_path)
+    };
+
+    let input_url = match c_url.to_str() {
         Ok(s) => s,
         Err(_) => {
             eprintln!("Invalid UTF-8 string passed to compile function.");
@@ -24,7 +29,15 @@ pub extern "C" fn run(entry: *const c_char) -> u8 {
         }
     };
 
-    let mut dir = util::Dir::new();
+    let root_path_str = match c_root_path.to_str() {
+        Ok(s) => s,
+        Err(_) => {
+            eprintln!("Invalid UTF-8 string passed to compile function.");
+            return 0;
+        }
+    };
+
+    let mut dir = util::Dir::new(root_path_str);
 
     match dir.get_root(&input_url) {
         Ok(_) => {}
@@ -34,7 +47,7 @@ pub extern "C" fn run(entry: *const c_char) -> u8 {
     };
 
     //TODO(find way to initialize dir only if root present)
-    compile(dir.root.expect("Not possible, it would have returned"))
+    compile(dir.root_file.expect("Not possible, it would have returned"))
 }
 
 fn compile(file_path: PathBuf) -> u8 {
@@ -61,10 +74,17 @@ fn compile(file_path: PathBuf) -> u8 {
     };
     */
 
+    println!("File path: {:#?}", file_path.clone());
+    let mut output_path = file_path.clone();
+    output_path.pop();
+    output_path.push("main.pdf");
+    println!("Output path: {:#?}", output_path);
+
     // Execute the Typst CLI command
     let status = Command::new("/Users/apurva/.cargo/bin/typst")
         .arg("compile")
         .arg(file_path.clone())
+        .arg(output_path)
         .status();
 
     let status = match status {

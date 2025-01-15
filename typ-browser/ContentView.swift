@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selectedTab: UUID = UUID()
     @State private var url: String = ""
+    @State private var dir_path = FileManager.default.temporaryDirectory
     @State private var update_index = 0
     @State private var global = 0
     @State private var isSidebarVisible = false
@@ -19,7 +20,7 @@ struct ContentView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            PDFViewer(url: $url, global: $global)
+            PDFViewer(url: $url, global: $global, dir_path: $dir_path)
                 .frame(maxWidth: .infinity)
             
             if isSidebarVisible {
@@ -63,8 +64,9 @@ struct ContentView: View {
         .toolbar {
             ToolbarItem(placement: .automatic) { // Example: Reload button
                 Button(action: {
+                    let dir_path = dir_path.path.cString(using: .utf8)!
                     let arg = url.cString(using: .utf8)!
-                    let success = run(arg);
+                    let success = run(arg, dir_path);
                     global += 1
                     print(success)
                     

@@ -24,25 +24,25 @@ impl File {
 
 // Temporary Directory
 pub struct Dir {
-    pub tmp_dir: TempDir,
-    pub root: Option<PathBuf>,
+    pub root_path: PathBuf,
+    pub root_file: Option<PathBuf>,
     pub unresolved: Vec<String>,
 }
 
 impl Dir {
-    pub fn new() -> Self {
+    pub fn new(root_path: &str) -> Self {
         Dir {
-            tmp_dir: Builder::new().prefix("typorium").tempdir().unwrap(),
-            root: None,
+            root_path: PathBuf::from(root_path),
+            root_file: None,
             unresolved: Vec::new(),
         }
     }
 
     pub fn get_root(&mut self, url: &str) -> Result<()> {
-        let fname = network::resolve_request(url, self.tmp_dir.path())?;
+        let fname = network::resolve_request(url, &self.root_path)?;
         match FileType::new(&fname) {
             FileType::Typst => {
-                self.root = Some(fname);
+                self.root_file = Some(fname);
                 Ok(())
             }
             FileType::Other => Err(anyhow::anyhow!("Recieved file is not a typst document")),
